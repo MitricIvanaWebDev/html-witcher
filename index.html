@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Witcher - website for funs</title>
+    <link rel="icon" type="icon" href="./images/logo/logo 1.jpg">
+    <link href="./css/style.css" rel="Stylesheet" type="text/css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Texturina:ital,wght@1,100&display=swap" rel="stylesheet">
+   
+<body>
+    <header>
+         <div class="witcher-header"> <!--flex-->
+             <div class="logo">
+                 <a href="https://youtu.be/waMkFIzvDpE" target="_blank"> <img src="./images/logo/logo 1.jpg" alt="WItcher 3 - logo" width="100" height="80"></a>  
+             </div>
+                <p id="logo-text">Toss a coin to your Witcher!</p>   
+            <nav>
+                <ul id="nav-main-container">
+                    <li><a href="./index.html">Home</a></li>
+                    <li><a href="./witcherworld.html">Witcher World</a></li>
+                    <li><a href="./gamebasic.html">Game Story</a></li>
+                     <li><a href="./characters.html">Charachers</a></li>
+                     <li><a href="./contact.html">Contact</a></li>    
+                </ul>
+             </nav>
+            <a href="./login.html" id="butt-log-reg"> { Login }</a>
+         </div>
+    </header>
+    
+
+   
+    <aside>
+        <section id="backgroung-image">
+            <div class="text-on-background">
+                <img src="./images/siva.png" alt="the wild hunt" />
+                <h5>The world of the Witcher is a fantasy fictional universe created by Polish writer Andrzej Sapkowski and described by him in the Witcher Saga series of novels. The series consists of 8 books that describe the adventure of a Witcher from Rivia named Geralt. The Witcher fantasy came with books, then game was made, and at the end Tv Show.
+                </h5>
+               
+                
+            </div>
+            
+        </section>
+    </aside>
+    
+    <div  id="banner" > 
+        <a href="https://www.gog.com/game/the_witcher_3_wild_hunt" target="_blank">
+            <img  src="./images/banner/banner5.PNG" width="350" height="250" alt="witcher-banner"/>    
+        </a>
+     </div>
+     <div id="background-posts">
+     <div id="posts"> 
+     </div>
+     
+    <script>
+        const divPosts = document.querySelector("#posts");
+        const xhr = new XMLHttpRequest;
+
+        xhr.addEventListener("load", function() {
+                const siteTitle = this.responseXML.querySelector("channel>title").textContent;
+                const siteUrl = this.responseXML.querySelector("channel>link").textContent;
+                const posts = this.responseXML.querySelectorAll("channel>item");
+
+                divPosts.innerHTML = `
+                    <h1 id="post-title">Posts from - <a href="${siteUrl}" target="_blank">${siteTitle}</a><h1>
+                `;
+                for(let post of posts) {
+                    const postTitle = post.querySelector("title").textContent;
+                    const postUrl = post.querySelector("link").textContent;
+                    const postDescription = post.querySelector("description").textContent;
+                    const postDate = post.querySelector("pubDate").textContent;
+                    const postCategory = post.querySelector("category").textContent;
+
+                    divPosts.innerHTML += `
+                    <article class="post">
+                    <h2><a href="${postUrl}" target="_blank">${postTitle}</a></h2>
+                    <div class="description">${postDescription}</div>
+                    <div class="date">${postDate}</div>
+                    <p class="category">Category: ${postCategory}<p>
+                    
+                    </article>
+                    `
+                }  
+        });
+
+        xhr.open("GET", "https://fextralife.com/feed/");
+        xhr.send();
+        </script>
+    </div>
+</body>
+</html>
